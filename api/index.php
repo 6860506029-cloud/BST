@@ -24,6 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['tree_name'])) {
 // 3. Fetch all trees to display (ensures data stays after refresh)
 $result = $conn->query("SELECT * FROM tree_nodes ORDER BY id DESC");
 ?>
+
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -375,4 +376,5 @@ $result = $conn->query("SELECT * FROM tree_nodes ORDER BY id DESC");
     </script>
 </body>
 </html>
+
 
