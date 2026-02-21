@@ -1,3 +1,29 @@
+<?php
+// 1. Database connection settings
+// Use the information from your MariaDB terminal (Adilah_database)
+$host = "localhost";
+$user = "root";
+$pass = "YOUR_PASSWORD"; // Change to your real MariaDB password
+$db   = "Adilah_database";
+
+$conn = new mysqli($host, $user, $pass, $db);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// 2. Insert data when the user clicks 'Add Tree'
+if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['tree_name'])) {
+    $name = $_POST['tree_name'];
+    $stmt = $conn->prepare("INSERT INTO tree_nodes (name) VALUES (?)");
+    $stmt->bind_param("s", $name);
+    $stmt->execute();
+}
+
+// 3. Fetch all trees to display (ensures data stays after refresh)
+$result = $conn->query("SELECT * FROM tree_nodes ORDER BY id DESC");
+?>
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -349,3 +375,4 @@
     </script>
 </body>
 </html>
+
